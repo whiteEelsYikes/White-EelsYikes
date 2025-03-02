@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> White-EelsYikes </title>
+  <link rel="icon" href="./favicon.ico" type ="image/x-icon">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="Description">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="./static/css/vue.css">
+  <link rel="stylesheet" href="./static/css/gitalk.css">
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?b3354307876925c625a24bb138d2177c";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+  </script>
+</head>
+<body>
+<div id="app"></div>
+<script>
+    var gitalkConfig = {
+      clientID: 'Ov23li9a1DeDjNQw1M0o',
+      clientSecret: '503e550c26b206f3703eece99aade63be85f19cd',
+      repo: 'White-EelsYikes',
+      owner: 'bai',
+      admin: ["bai"],
+      distractionFreeMode: false
+    };
+    window.$docsify = {
+      name: 'bai',
+      repo: 'https://github.com/whiteEelsYikes',
+      auto2top: true,
+      coverpage: true,
+      loadSidebar: true,
+      maxLevel: 4,
+      subMaxLevel: 2,
+      search: {
+        paths: 'auto',
+        placeholder: '🔍 检索... ',
+        noData: '😞 没有匹配项 ',
+        depth: 6
+      },
+      pagination: {
+        previousText: '⏮️上一页',
+        nextText: '下一页⏭️',
+        crossChapter: true
+      },
+      plugins: [
+        function (hook, vm) {
+          hook.doneEach(function() {
+            var label, domObj, main, divEle, gitalk;
+            label = md5(decodeURI(vm.route.path.split("/").pop()));
+            domObj = Docsify.dom;
+            main = domObj.getNode("#main");
+
+            Array.apply(
+              null,
+              document.querySelectorAll("div.gitalk-container")
+            ).forEach(function(ele) {
+              ele.remove();
+            });
+      
+            divEle = domObj.create("div");
+            divEle.id = "gitalk-container-" + label;
+            divEle.className = "gitalk-container";
+            divEle.style = "width: " + main.clientWidth + "px; margin: 0 auto 20px;";
+            domObj.appendTo(domObj.find(".content"), divEle);
+            gitalk = new Gitalk(
+              Object.assign(gitalkConfig, { id: !label ? "home" : label })
+            );
+            gitalk.render("gitalk-container-" + label);
+          });
+        }
+      ]
+    }                                 
+  </script>
+
+<script src="https://cdn.jsdelivr.net/npm/docsify@4/lib/plugins/search.js"></script>
+<script src="./static/js/md5.js"></script>
+<script src="./static/js/docsify.min.js"></script>
+<script src="./static/js/gitalk.min.js"></script>
+<script src="./static/js/docsify-pagination.min.js"></script>
+<script src="./static/js/zoom-image.js"></script>
+<script src="./static/js/prism-bash.js"></script>
+<script src="./static/js/prism-java.min.js"></script>
+
+</body>
+</html>
